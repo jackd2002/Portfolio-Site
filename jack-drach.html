@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jack Drach — Slot Design Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Bungee&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-deep: #1a0f3d;
+    --bg-mid: #2a1a5e;
+    --purple-bright: #6b3fdb;
+    --purple-glow: #8b5fff;
+    --pink: #ff4d9d;
+    --yellow: #ffd24a;
+    --green: #4ade80;
+    --cyan: #4dd8ff;
+    --orange: #ff9544;
+    --text: #ffffff;
+    --text-dim: #b8a8e0;
+    --text-mute: #7d6ba8;
+    --card-bg: #2d1a66;
+    --border: rgba(139, 95, 255, 0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(ellipse 100% 60% at 50% 0%, rgba(107, 63, 219, 0.25), transparent 70%),
+      radial-gradient(ellipse 60% 40% at 100% 100%, rgba(255, 77, 157, 0.1), transparent 70%);
+  }
+
+  .top-bar {
+    background: rgba(0, 0, 0, 0.25);
+    padding: 10px 0;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .top-bar-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .top-links { display: flex; gap: 24px; }
+  .top-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s;
+  }
+  .top-links a:hover { color: white; }
+
+  .top-stat { color: var(--text-dim); font-weight: 700; }
+  .top-stat strong { color: white; font-weight: 800; }
+
+  .main-nav {
+    padding: 16px 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.15), transparent);
+  }
+
+  .main-nav-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: white;
+  }
+
+  .brand img {
+    height: 56px;
+    width: auto;
+  }
+
+  .brand-name {
+    font-family: 'Bungee', cursive;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    color: var(--yellow);
+  }
+
+  .nav-center {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(0,0,0,0.3);
+    padding: 6px;
+    border-radius: 999px;
+  }
+
+  .balance-pill {
+    padding: 8px 16px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 999px;
+    color: white;
+    font-weight: 800;
+    font-size: 14px;
+  }
+
+  .cta-btn {
+    background: var(--green);
+    color: #0a3a1a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 0 4px 12px rgba(74, 222, 128, 0.3);
+    transition: transform 0.15s;
+  }
+  .cta-btn:hover { transform: translateY(-1px); }
+
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+
+  .nav-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 16px;
+  }
+  .nav-icon:hover { background: rgba(255,255,255,0.12); }
+
+  .user-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 16px 6px 6px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 999px;
+    color: white;
+    font-weight: 800;
+    font-size: 14px;
+  }
+
+  .user-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, var(--yellow), var(--orange));
+    position: relative;
+  }
+  .user-avatar::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 10px;
+    height: 10px;
+    background: var(--green);
+    border-radius: 50%;
+    border: 2px solid var(--bg-deep);
+  }
+
+  /* Personal intro strip */
+  .intro-strip {
+    max-width: 1240px;
+    margin: 24px auto 0;
+    padding: 0 24px;
+  }
+
+  .intro-card {
+    background: linear-gradient(135deg, rgba(107, 63, 219, 0.35), rgba(255, 77, 157, 0.2));
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 24px 28px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .intro-card::before {
+    content: '';
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255, 210, 74, 0.15), transparent 60%);
+  }
+
+  .intro-avatar {
+    flex-shrink: 0;
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--yellow), var(--orange));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bungee', cursive;
+    font-size: 36px;
+    color: #1a0f3d;
+    box-shadow: 0 8px 24px rgba(255, 149, 68, 0.3);
+  }
+
+  .intro-text { flex: 1; position: relative; z-index: 1; }
+
+  .intro-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 6px;
+  }
+
+  .intro-text h1 {
+    font-family: 'Bungee', cursive;
+    font-size: 22px;
+    line-height: 1.2;
+    margin-bottom: 6px;
+    font-weight: normal;
+  }
+
+  .intro-text p {
+    color: var(--text-dim);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+    max-width: 600px;
+  }
+
+  .intro-actions { display: flex; gap: 10px; flex-shrink: 0; position: relative; z-index: 1; }
+
+  .intro-btn {
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 13px;
+    text-decoration: none;
+    transition: transform 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .intro-btn-primary {
+    background: var(--yellow);
+    color: #1a0f3d;
+    box-shadow: 0 4px 14px rgba(255, 210, 74, 0.3);
+  }
+
+  .intro-btn-secondary {
+    background: rgba(255,255,255,0.08);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .intro-btn:hover { transform: translateY(-1px); }
+
+  /* Featured banner */
+  .featured {
+    max-width: 1240px;
+    margin: 16px auto 0;
+    padding: 0 24px;
+  }
+
+  .featured-banner {
+    background: linear-gradient(90deg, #4a2db8 0%, #6b3fdb 50%, #8b5fff 100%);
+    border-radius: 20px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    position: relative;
+    overflow: hidden;
+    min-height: 130px;
+  }
+
+  .featured-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 70% 50%, rgba(255, 210, 74, 0.2), transparent 50%);
+  }
+
+  .featured-art {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    max-height: 110px;
+    width: auto;
+    opacity: 0.85;
+    filter: drop-shadow(0 8px 20px rgba(0,0,0,0.3));
+    z-index: 1;
+  }
+
+  .featured-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    z-index: 1;
+    flex: 1;
+  }
+
+  .featured-tags { display: flex; flex-direction: column; gap: 6px; }
+
+  .featured-tag {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: white;
+    text-align: center;
+    min-width: 80px;
+  }
+
+  .featured-tag.green { background: var(--green); color: #0a3a1a; }
+  .featured-tag.cyan { background: var(--cyan); color: #0a2a3a; }
+
+  .featured-tag .num { display: block; font-family: 'Bungee', cursive; font-size: 18px; margin-bottom: 2px; }
+
+  .featured-info h2 {
+    font-family: 'Bungee', cursive;
+    font-size: 28px;
+    line-height: 1.1;
+    margin-bottom: 6px;
+    font-weight: normal;
+  }
+
+  .featured-info p { color: var(--text-dim); font-size: 14px; }
+
+  /* Section title */
+  .section-title {
+    max-width: 1240px;
+    margin: 40px auto 16px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .section-title h3 {
+    font-family: 'Bungee', cursive;
+    font-size: 24px;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title h3::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 28px;
+    background: var(--yellow);
+    border-radius: 4px;
+  }
+
+  .view-all {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 13px;
+  }
+  .view-all:hover { color: white; }
+
+  /* Games grid */
+  .games-grid {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .game-banner {
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+    height: 200px;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    text-decoration: none;
+    display: block;
+    color: white;
+  }
+  .game-banner:hover { transform: translateY(-4px); }
+
+  .game-banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+  }
+
+  .game-content {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .game-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    align-self: flex-start;
+    padding: 5px 12px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+  }
+
+  .game-status.live {
+    background: rgba(74, 222, 128, 0.2);
+    border-color: rgba(74, 222, 128, 0.5);
+    color: var(--green);
+  }
+
+  .game-status.live::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--green);
+    animation: pulse 2s infinite;
+  }
+
+  .game-status.soon { color: var(--yellow); }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .game-logo-img {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    max-height: 150px;
+    max-width: 52%;
+    width: auto;
+    z-index: 1;
+    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));
+    object-fit: contain;
+  }
+
+  .game-hook {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    max-width: 48%;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+
+  .game-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    margin-top: 8px;
+  }
+
+  /* Banner backgrounds */
+  .banner-zeclaw {
+    background: radial-gradient(circle at 75% 50%, #ffd24a 0%, #ff4d9d 25%, #8b3cdb 55%, #2d1066 100%);
+  }
+
+  .banner-sundae {
+    background: linear-gradient(120deg, #6d1f4a 0%, #d9408a 50%, #ff8fc0 100%);
+  }
+
+  .banner-beanstalk {
+    background: linear-gradient(120deg, #14532d 0%, #3aa856 45%, #5cc8f0 100%);
+  }
+
+  .banner-gables {
+    background: linear-gradient(120deg, #5c1a2e 0%, #b83a3f 50%, #e8b04a 100%);
+  }
+
+  /* Categories */
+  .categories {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+
+  .category {
+    height: 100px;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: transform 0.2s;
+    overflow: hidden;
+    position: relative;
+  }
+  .category:hover { transform: translateY(-2px); }
+
+  .category-name {
+    font-family: 'Bungee', cursive;
+    font-size: 18px;
+    color: white;
+    position: relative;
+    z-index: 1;
+  }
+
+  .category-emoji {
+    font-size: 50px;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+    position: relative;
+    z-index: 1;
+  }
+
+  .cat-clusters { background: linear-gradient(120deg, #6b3fdb, #b34dff); }
+  .cat-lines { background: linear-gradient(120deg, #ff4d9d, #ff9544); }
+  .cat-megaways { background: linear-gradient(120deg, #4a9dff, #4dd8ff); }
+  .cat-experimental { background: linear-gradient(120deg, #ffd24a, #ff9544); }
+
+  footer {
+    margin-top: 60px;
+    padding: 32px 24px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    background: rgba(0,0,0,0.2);
+  }
+
+  .footer-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    color: var(--text-mute);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+  }
+  .footer-links a:hover { color: white; }
+
+  @media (max-width: 900px) {
+    .games-grid { grid-template-columns: 1fr; }
+    .categories { grid-template-columns: repeat(2, 1fr); }
+    .featured-banner { padding: 20px; }
+    .featured-art { display: none; }
+    .nav-center, .nav-right .nav-icon, .user-pill { display: none; }
+    .intro-card { flex-direction: column; align-items: flex-start; padding: 20px; }
+    .intro-actions { width: 100%; }
+    .intro-btn { flex: 1; justify-content: center; }
+    .top-bar { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <div class="top-links">
+      <a href="#">Portfolio</a>
+      <a href="#">Design Docs</a>
+      <a href="#">About Jack</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="top-stat">
+      <strong>4</strong> Games in Development
+    </div>
+  </div>
+</div>
+
+<nav class="main-nav">
+  <div class="main-nav-inner">
+    <a href="#" class="brand">
+      <img src="assets/site-logo.png" alt="Jack Drach">
+      <div class="brand-name">JACK DRACH</div>
+    </a>
+
+    <div class="nav-center">
+      <div class="balance-pill">Portfolio · 2026</div>
+      <a href="mailto:jack@example.com" class="cta-btn">Hire Me</a>
+    </div>
+
+    <div class="nav-right">
+      <div class="nav-icon">🔍</div>
+      <div class="nav-icon">🔔</div>
+      <div class="user-pill">
+        <div class="user-avatar"></div>
+        JACK
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="intro-strip">
+  <div class="intro-card">
+    <div class="intro-avatar">J</div>
+    <div class="intro-text">
+      <div class="intro-tag">SLOT DESIGNER · PORTFOLIO</div>
+      <h1>Hey, I'm Jack. Welcome to my arcade.</h1>
+      <p>I'm a solo slot designer, and I build every layer myself — the math model and RTP, the bonus mechanics, the art direction, and the pacing that makes a spin feel right. Each game here is tuned with real simulations to land on its target return, and built the way commercial slots actually work: a proper game engine, with outcomes decided server-side rather than in the browser. I'm looking to bring this craft to a studio.</p>
+    </div>
+    <div class="intro-actions">
+      <a href="#" class="intro-btn intro-btn-primary">📄 Resume</a>
+      <a href="mailto:jack@example.com" class="intro-btn intro-btn-secondary">✉ Get in Touch</a>
+    </div>
+  </div>
+</div>
+
+<div class="section-title">
+  <h3>Jack's Originals</h3>
+  <a href="#" class="view-all">View Design Docs →</a>
+</div>
+
+<div class="games-grid">
+
+  <a href="ze-claw.html" class="game-banner banner-zeclaw">
+    <img src="assets/ze-claw.png" class="game-logo-img" alt="Ze Claw">
+    <div class="game-content">
+      <span class="game-status live">In Development</span>
+      <div>
+        <p class="game-hook">Choose your buy-in — sweep the board clean or grab the jackpot.</p>
+        <div class="game-meta">
+          <span>🎯 7×7 Cluster</span>
+          <span>⚡ High Vol</span>
+          <span>🏆 30,000x</span>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="game-banner banner-sundae">
+    <img src="assets/sundae-scatter.png" class="game-logo-img" alt="Super Sundae Scatter">
+    <div class="game-content">
+      <span class="game-status live">In Development</span>
+      <div>
+        <p class="game-hook">Grow a single wild scoop into a bowl-filling 5×5.</p>
+        <div class="game-meta">
+          <span>🎯 5×5</span>
+          <span>⚡ 20 Lines</span>
+          <span>🏆 5,000x</span>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="game-banner banner-beanstalk">
+    <img src="assets/jack-beanstalk.png" class="game-logo-img" alt="Jack's Beanstalk Sky Drop">
+    <div class="game-content">
+      <span class="game-status live">In Development</span>
+      <div>
+        <p class="game-hook">Plant sticky wild stalks and stack their multipliers.</p>
+        <div class="game-meta">
+          <span>🎯 6×6 Cluster Tumble</span>
+          <span>⚡ High Vol</span>
+          <span>🏆 5,000x</span>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="game-banner banner-gables">
+    <img src="assets/grand-gables.png" class="game-logo-img" alt="Grand Gables">
+    <div class="game-content">
+      <span class="game-status soon">Coming Soon</span>
+      <p class="game-hook">A festive gingerbread cluster slot — coming soon.</p>
+    </div>
+  </a>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div>© 2026 Jack Drach · A slot design portfolio</div>
+    <div class="footer-links">
+      <a href="mailto:jack@example.com">Email</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Twitter</a>
+      <a href="#">Resume</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
