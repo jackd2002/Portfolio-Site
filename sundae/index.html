@@ -22,10 +22,63 @@
       position: absolute;
       transform-origin: top left;
     }
+
+    #loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: #1a0f3d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      transition: opacity 0.35s ease;
+    }
+    #loading-content {
+      text-align: center;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+    #loading-icon {
+      width: 180px;
+      height: auto;
+      display: block;
+      margin: 0 auto 16px;
+    }
+    #loading-label {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-bottom: 20px;
+      letter-spacing: 0.04em;
+    }
+    #progress-track {
+      width: 260px;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(212, 160, 23, 0.5);
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 0 auto;
+    }
+    #loading-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(to right, #b8860b, #ffd700, #b8860b);
+      border-radius: 5px;
+      transition: width 0.15s linear;
+    }
   </style>
-  <script type="module" crossorigin src="/sundae/assets/index-DfQV-kAn.js"></script>
+  <script type="module" crossorigin src="/sundae/assets/index-B_7PeXKf.js"></script>
 </head>
 <body>
+  <div id="loading-overlay">
+    <div id="loading-content">
+      <img id="loading-icon" src="assets/loading-icon.png" alt="" />
+      <p id="loading-label">Loading…</p>
+      <div id="progress-track">
+        <div id="loading-bar"></div>
+      </div>
+    </div>
+  </div>
   <div id="app"></div>
 </body>
 </html>
