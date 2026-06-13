@@ -413,12 +413,21 @@
     position: relative;
     height: 200px;
     cursor: pointer;
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     text-decoration: none;
     display: block;
     color: white;
+    border: 2px solid #d4a017;
+    box-shadow: 0 0 16px rgba(212,160,23,0.35), 0 8px 24px rgba(0,0,0,0.45);
+    padding: 6px;
+    background-color: var(--bg-deep);
+    background-origin: content-box;
+    background-clip: content-box;
   }
-  .game-banner:hover { transform: translateY(-4px); }
+  .game-banner:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 28px rgba(212,160,23,0.6), 0 12px 32px rgba(0,0,0,0.55);
+  }
 
   .game-banner::after {
     content: '';
@@ -517,8 +526,12 @@
   .banner-zeclaw::after { background: none; }
 
   .banner-sundae {
-    background: linear-gradient(120deg, #6d1f4a 0%, #d9408a 50%, #ff8fc0 100%);
+    background-image: url('assets/super-sundae-scatter-button.png');
+    background-size: cover;
+    background-position: center;
   }
+
+  .banner-sundae::after { background: none; }
 
   .banner-beanstalk {
     background: linear-gradient(120deg, #14532d 0%, #3aa856 45%, #5cc8f0 100%);
@@ -675,20 +688,7 @@
 
   <a href="ze-claw/" class="game-banner banner-zeclaw"></a>
 
-  <a href="sundae/" class="game-banner banner-sundae">
-    <img src="assets/sundae-scatter.png" class="game-logo-img" alt="Super Sundae Scatter">
-    <div class="game-content">
-      <span class="game-status live">In Development</span>
-      <div>
-        <p class="game-hook">Grow a single wild scoop into a bowl-filling 5×5.</p>
-        <div class="game-meta">
-          <span>🎯 5×5</span>
-          <span>⚡ 20 Lines</span>
-          <span>🏆 5,000x</span>
-        </div>
-      </div>
-    </div>
-  </a>
+  <a href="sundae/" class="game-banner banner-sundae"></a>
 
   <a href="#" class="game-banner banner-beanstalk">
     <img src="assets/jack-beanstalk.png" class="game-logo-img" alt="Jack's Beanstalk Sky Drop">
