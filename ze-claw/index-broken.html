@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ze Claw</title>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="game-container">
+
+    <!-- Layer 1: backdrop inside the cabinet's transparent window -->
+    <div class="reel-backdrop"></div>
+
+    <!-- Layer 2: 7×7 symbol grid -->
+    <div class="reel-grid" id="grid"></div>
+
+    <!-- Layer 3: cabinet frame over everything; transparent center reveals grid -->
+    <img src="assets/cabinet-frame.png" class="cabinet-frame" alt="">
+
+    <!-- Layer 4: functional UI over cabinet's decorative bottom zones -->
+    <div class="ui-overlay">
+
+      <button class="btn-buy">BUY<br>BONUS</button>
+
+      <div class="stat-display">
+        <div class="stat-row">
+          <div class="stat">
+            <span class="stat-label">BALANCE</span>
+            <span class="stat-value" id="balance">$100.00</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">WIN</span>
+            <span class="stat-value" id="lastWin">$0.00</span>
+          </div>
+        </div>
+        <div class="bet-row">
+          <button class="btn-bet">−</button>
+          <span class="bet-label">BET <span id="bet">$0.20</span></span>
+          <button class="btn-bet">+</button>
+        </div>
+      </div>
+
+      <button class="btn-spin" id="spinBtn"></button>
+
+    </div>
+
+  </div>
+
+  <script src="game.js"></script>
+
+</body>
+</html>

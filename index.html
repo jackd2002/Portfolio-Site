@@ -509,8 +509,12 @@
 
   /* Banner backgrounds */
   .banner-zeclaw {
-    background: radial-gradient(circle at 75% 50%, #ffd24a 0%, #ff4d9d 25%, #8b3cdb 55%, #2d1066 100%);
+    background-image: url('assets/ze-claw-button.png');
+    background-size: cover;
+    background-position: center;
   }
+
+  .banner-zeclaw::after { background: none; }
 
   .banner-sundae {
     background: linear-gradient(120deg, #6d1f4a 0%, #d9408a 50%, #ff8fc0 100%);
@@ -669,20 +673,7 @@
 
 <div class="games-grid">
 
-  <a href="ze-claw.html" class="game-banner banner-zeclaw">
-    <img src="assets/ze-claw.png" class="game-logo-img" alt="Ze Claw">
-    <div class="game-content">
-      <span class="game-status live">In Development</span>
-      <div>
-        <p class="game-hook">Choose your buy-in — sweep the board clean or grab the jackpot.</p>
-        <div class="game-meta">
-          <span>🎯 7×7 Cluster</span>
-          <span>⚡ High Vol</span>
-          <span>🏆 30,000x</span>
-        </div>
-      </div>
-    </div>
-  </a>
+  <a href="ze-claw/" class="game-banner banner-zeclaw"></a>
 
   <a href="sundae/" class="game-banner banner-sundae">
     <img src="assets/sundae-scatter.png" class="game-logo-img" alt="Super Sundae Scatter">

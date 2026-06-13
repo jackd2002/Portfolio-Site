@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ze Claw</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=6" />
+</head>
+<body>
+
+  <div class="page">
+
+    <!-- Buy button (left) + reel column (right) sit side-by-side -->
+    <div class="reel-row">
+
+      <div class="reel-column">
+
+        <button class="btn-buy" id="buyBtn">
+          <img src="assets/bonus-buy.png?v=2" alt="Buy Bonus">
+        </button>
+
+        <div class="machine-body">
+
+          <div id="fp-indicator" class="fp-indicator">
+            FREE PLAY · <span id="fp-spins-left">10</span> SPINS LEFT
+          </div>
+
+          <img class="game-logo" src="assets/logo.png" alt="Ze Claw">
+          <div class="marquee-wrap">
+            <!-- Marquee chase bulb overlay — z-index:11, above border art (z:10) -->
+            <div class="marquee-bulbs" aria-hidden="true">
+              <div class="marquee-bulb" style="left:22.2%;top:8.2%;animation-delay:0s"></div>
+              <div class="marquee-bulb" style="left:28.2%;top:5.9%;animation-delay:-0.25s"></div>
+              <div class="marquee-bulb" style="left:32.6%;top:5.5%;animation-delay:-0.50s"></div>
+              <div class="marquee-bulb" style="left:38.7%;top:4.5%;animation-delay:-0.75s"></div>
+              <div class="marquee-bulb" style="left:43.6%;top:3.4%;animation-delay:-1.00s"></div>
+              <div class="marquee-bulb" style="left:56.8%;top:4.1%;animation-delay:-1.25s"></div>
+              <div class="marquee-bulb" style="left:61.6%;top:4.3%;animation-delay:-1.50s"></div>
+              <div class="marquee-bulb" style="left:67.2%;top:4.8%;animation-delay:-1.75s"></div>
+              <div class="marquee-bulb" style="left:73.7%;top:6.6%;animation-delay:-2.00s"></div>
+              <div class="marquee-bulb" style="left:78.1%;top:8.0%;animation-delay:-2.25s"></div>
+            </div>
+            <div class="reel-frame">
+              <div class="reel-area">
+                <div class="reel-grid" id="grid">
+                  <!-- 49 .cell divs inserted by game.js -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Win breakdown panel — positioned left of the cabinet -->
+            <div id="win-panel" class="win-panel">
+              <div class="win-panel-inner">
+                <div id="winPanelRows" class="win-panel-rows"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ui-bar">
+            <div class="ui-bar-content">
+
+              <!-- Secondary controls: settings + max-bet, stacked far left -->
+              <div class="bar-secondary">
+                <button class="btn-icon-sm btn-settings" id="settingsBtn" title="Settings">⚙</button>
+                <button class="btn-icon-sm" id="maxBetBtn" title="Max Bet">⚡</button>
+              </div>
+
+              <div class="bar-divider"></div>
+
+              <!-- Readout plates: BALANCE | WIN | BET -->
+              <div class="ui-bar-readouts">
+                <div class="stat-plate">
+                  <span class="plate-label">BALANCE</span>
+                  <span class="plate-value" id="balance">$100,000.00</span>
+                </div>
+                <div class="bar-gold-divider"></div>
+                <div class="stat-plate">
+                  <span class="plate-label">WIN</span>
+                  <span class="plate-value" id="lastWin">$0.00</span>
+                </div>
+                <div class="bar-gold-divider"></div>
+                <div class="stat-plate bet-plate">
+                  <span class="plate-label">BET</span>
+                  <div class="bet-stepper">
+                    <button class="btn-bet" id="betDown">−</button>
+                    <span class="plate-value" id="bet">$0.20</span>
+                    <button class="btn-bet" id="betUp">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bar-divider"></div>
+
+              <!-- Action buttons: info | spin | maker mark -->
+              <div class="ui-bar-actions">
+                <button class="btn-info-img" id="infoBtn" title="Info">
+                  <img src="assets/infobutton.png" alt="Info">
+                </button>
+                <button class="btn-spin" id="spinBtn">
+                  <img src="assets/spin.png" alt="Spin">
+                </button>
+                <img class="bar-maker-mark" src="assets/uibarlogo.png" alt="" aria-hidden="true">
+              </div>
+
+            </div>
+          </div>
+
+        </div><!-- /.machine-body -->
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Bonus buy modal ── -->
+  <div id="bonusModal" class="bonus-modal">
+    <div class="bonus-backdrop" id="bonusBackdrop"></div>
+    <div class="bonus-panel">
+
+      <button class="bonus-close" id="bonusClose">✕</button>
+      <h2 class="bonus-title">CHOOSE YOUR BONUS</h2>
+
+      <div class="bonus-cards">
+
+        <div class="bonus-card tier1">
+          <div class="card-accent-bar"></div>
+          <div class="card-body">
+            <div class="card-tier-label">TIER 1</div>
+            <div class="card-name">PRIZE MODE</div>
+            <div class="card-price" id="tier1Price">$19.00</div>
+            <p class="card-desc">Cluster-pays free spins with persistent multipliers. The CLAW drops sticky wilds that stay pinned to the grid for the full bonus.</p>
+            <p class="card-subdesc">10 free spins · Persistent multipliers · Sticky CLAW wilds</p>
+            <button class="card-buy-btn" data-tier="1">BUY</button>
+          </div>
+        </div>
+
+        <div class="bonus-card tier2">
+          <div class="card-accent-bar"></div>
+          <div class="card-body">
+            <div class="card-tier-label">TIER 2</div>
+            <div class="card-name">JACKPOT MODE</div>
+            <div class="card-price" id="tier2Price">$113.00</div>
+            <p class="card-desc">Same cluster-pays engine as Prize Mode — but with a far higher claw drop rate, more frequent golden claws, and massively fatter top-end prizes. Pure variance. Chase the big win.</p>
+            <p class="card-subdesc">10 free spins · Premium claw rates · Juicier top-end prizes</p>
+            <button class="card-buy-btn" data-tier="2">BUY</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Confirmation overlay — sits above .bonus-panel inside the modal ── -->
+    <div id="confirmOverlay" class="confirm-overlay">
+      <div class="confirm-panel">
+        <img src="assets/buy-bonus.png" class="confirm-img" alt="">
+        <p class="confirm-text">
+          <span id="confirmLabel"></span><br>
+          <span id="confirmPriceLine"></span>
+        </p>
+        <div class="confirm-btns">
+          <button class="confirm-btn confirm-yes" id="confirmYes">✓</button>
+          <button class="confirm-btn confirm-no"  id="confirmNo">✗</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Bonus buy celebration overlay ── -->
+  <div id="bonusCelebration" class="bonus-celebration">
+    <div class="bonus-celebration-content">
+      <div class="bonus-celebration-title" id="celebTitle"></div>
+      <div class="bonus-celebration-sub"   id="celebSub"></div>
+    </div>
+  </div>
+
+  <!-- ── Info overlay ── -->
+  <div id="infoOverlay" class="info-overlay">
+    <div class="info-backdrop" id="infoBackdrop"></div>
+    <div class="info-panel">
+      <div class="info-header">
+        <span class="info-page-indicator" id="infoPageIndicator">Page 1 / 8</span>
+        <button class="info-close" id="infoClose">✕</button>
+      </div>
+      <div class="info-content" id="infoContent"></div>
+      <div class="info-footer">
+        <button class="info-nav-btn" id="infoPrev">◀</button>
+        <button class="info-nav-btn" id="infoNext">▶</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
