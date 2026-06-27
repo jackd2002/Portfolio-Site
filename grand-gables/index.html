@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gingerbread's Grand Gables — Dev Build</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #1a0800;
+    }
+    #app {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    #app canvas {
+      display: block;
+      position: absolute;
+      transform-origin: top left;
+    }
+
+    #loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: #1a0f3d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.35s ease;
+    }
+    #loading-content {
+      text-align: center;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+    #loading-icon {
+      width: 180px;
+      height: auto;
+      display: block;
+      margin: 0 auto 16px;
+    }
+    #loading-label {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-bottom: 20px;
+      letter-spacing: 0.04em;
+    }
+    #progress-track {
+      width: 320px;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(212, 160, 23, 0.5);
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 0 auto;
+    }
+    #loading-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(to right, #b8860b, #ffd700, #b8860b);
+      border-radius: 6px;
+      transition: width 0.15s linear;
+    }
+  </style>
+  <script type="module" crossorigin src="/grand-gables/assets/index-Br_185vs.js"></script>
+</head>
+<body>
+
+  <div id="loading-overlay">
+    <div id="loading-content">
+      <img id="loading-icon" src="assets/loading-icon.png" alt="" />
+      <p id="loading-label">Loading…</p>
+      <div id="progress-track">
+        <div id="loading-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var bar = document.getElementById('loading-bar');
+      var overlay = document.getElementById('loading-overlay');
+      var progress = 0;
+      var completed = false;
+
+      // Animate 0→80% over ~2400ms (30ms × 80 steps)
+      var ticker = setInterval(function () {
+        if (progress < 80) {
+          progress += 1;
+          bar.style.width = progress + '%';
+        } else {
+          clearInterval(ticker);
+        }
+      }, 30);
+
+      function complete() {
+        if (completed) return;
+        completed = true;
+        clearInterval(ticker);
+        bar.style.transition = 'width 0.25s ease';
+        bar.style.width = '100%';
+        setTimeout(function () {
+          overlay.style.opacity = '0';
+          setTimeout(function () {
+            overlay.style.display = 'none';
+          }, 360);
+        }, 250);
+      }
+
+      window.addEventListener('load', complete);
+      setTimeout(complete, 3000);
+    })();
+  </script>
+
+  <div id="app"></div>
+</body>
+</html>
