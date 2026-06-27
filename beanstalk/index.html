@@ -36,10 +36,97 @@
         background: #2a1a55;
         box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
       }
+
+      /* ── Branded loading screen ─────────────────────────────────────────── */
+      #loading-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #1a0f3d;
+        transition: opacity 0.5s ease;
+      }
+      #loading-screen.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      #loading-screen img {
+        width: 180px;
+        max-width: 60vw;
+        height: auto;
+        margin-bottom: 28px;
+      }
+      #loading-bar-track {
+        width: 240px;
+        max-width: 60vw;
+        height: 12px;
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.35);
+        border: 1px solid rgba(255, 215, 0, 0.35);
+        overflow: hidden;
+      }
+      #loading-bar-fill {
+        width: 0%;
+        height: 100%;
+        border-radius: 6px;
+        background: linear-gradient(to right, #b8860b, #ffd700, #b8860b);
+        transition: width 0.25s ease;
+      }
     </style>
-    <script type="module" crossorigin src="/beanstalk/assets/index-DEqQz1kG.js"></script>
+    <script type="module" crossorigin src="/beanstalk/assets/index-AF1pyCvY.js"></script>
   </head>
   <body>
+    <div id="loading-screen">
+      <img src="/beanstalk/assets/loading-icon.png" alt="Loading" />
+      <div id="loading-bar-track">
+        <div id="loading-bar-fill"></div>
+      </div>
+    </div>
+
     <a href="/" class="back-to-portfolio">← All Games</a>
+
+    <script>
+      (function () {
+        var screen = document.getElementById('loading-screen');
+        var fill = document.getElementById('loading-bar-fill');
+        if (!screen || !fill) return;
+
+        var progress = 0;
+        var done = false;
+
+        // Creep toward 80% while the game loads.
+        var timer = setInterval(function () {
+          if (done) return;
+          if (progress < 80) {
+            progress += Math.max(0.5, (80 - progress) * 0.08);
+            if (progress > 80) progress = 80;
+            fill.style.width = progress + '%';
+          }
+        }, 120);
+
+        function complete() {
+          if (done) return;
+          done = true;
+          clearInterval(timer);
+          fill.style.width = '100%';
+          setTimeout(function () {
+            screen.classList.add('hidden');
+            setTimeout(function () {
+              if (screen.parentNode) screen.parentNode.removeChild(screen);
+            }, 600);
+          }, 200);
+        }
+
+        // The game calls this once it's fully initialised; fall back to the
+        // window load event so the screen always clears.
+        window.__beanstalkReady = complete;
+        window.addEventListener('load', function () {
+          setTimeout(complete, 800);
+        });
+      })();
+    </script>
   </body>
 </html>
