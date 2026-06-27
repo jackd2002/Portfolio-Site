@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Documents — Jack Drach</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Bungee&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-deep: #1a0f3d;
+    --bg-mid: #2a1a5e;
+    --purple-bright: #6b3fdb;
+    --purple-glow: #8b5fff;
+    --pink: #ff4d9d;
+    --yellow: #ffd24a;
+    --gold: #d4a017;
+    --text: #ffffff;
+    --text-dim: #b8a8e0;
+    --text-mute: #7d6ba8;
+    --card-bg: #2d1a66;
+    --border: rgba(139, 95, 255, 0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(ellipse 100% 60% at 50% 0%, rgba(107, 63, 219, 0.25), transparent 70%),
+      radial-gradient(ellipse 60% 40% at 100% 100%, rgba(255, 77, 157, 0.1), transparent 70%);
+  }
+
+  .main-nav {
+    padding: 16px 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.15), transparent);
+  }
+
+  .main-nav-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: white;
+  }
+
+  .brand img { height: 56px; width: auto; }
+
+  .brand-name {
+    font-family: 'Bungee', cursive;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    color: var(--yellow);
+  }
+
+  /* Page wrapper */
+  .docs-wrap {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Back to portfolio pill */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 13px;
+    text-decoration: none;
+    color: var(--yellow);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--gold);
+    transition: transform 0.15s, background 0.2s, box-shadow 0.2s;
+  }
+  .back-link:hover {
+    transform: translateY(-1px);
+    background: rgba(212,160,23,0.12);
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
+  }
+
+  /* Heading block */
+  .page-head { margin: 28px 0 8px; }
+
+  .page-head h1 {
+    font-family: 'Bungee', cursive;
+    font-size: 30px;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .page-head h1::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 32px;
+    background: var(--yellow);
+    border-radius: 4px;
+  }
+
+  .page-head p {
+    color: var(--text-dim);
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 10px;
+    padding-left: 20px;
+  }
+
+  /* Doc cards */
+  .doc-list {
+    margin: 28px 0 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .doc-card {
+    background: linear-gradient(135deg, rgba(107, 63, 219, 0.30), rgba(255, 77, 157, 0.15));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    transition: transform 0.15s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .doc-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--gold);
+    box-shadow: 0 0 16px rgba(212,160,23,0.25), 0 8px 24px rgba(0,0,0,0.35);
+  }
+
+  .doc-card-name {
+    font-family: 'Bungee', cursive;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 1.25;
+  }
+  .doc-card-sub {
+    color: var(--text-mute);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .doc-btn {
+    flex-shrink: 0;
+    padding: 11px 20px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 13px;
+    text-decoration: none;
+    background: var(--yellow);
+    color: #1a0f3d;
+    box-shadow: 0 4px 14px rgba(255, 210, 74, 0.25);
+    transition: transform 0.15s;
+    white-space: nowrap;
+  }
+  .doc-btn:hover { transform: translateY(-1px); }
+
+  /* Footer */
+  footer {
+    margin-top: 60px;
+    padding: 32px 24px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    background: rgba(0,0,0,0.2);
+  }
+  .footer-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    color: var(--text-mute);
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { color: var(--text-dim); text-decoration: none; }
+  .footer-links a:hover { color: white; }
+
+  @media (max-width: 700px) {
+    .doc-card { flex-direction: column; align-items: flex-start; }
+    .doc-btn { align-self: stretch; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="main-nav">
+  <div class="main-nav-inner">
+    <a href="index.html" class="brand">
+      <img src="assets/site-logo.png" alt="Jack Drach">
+      <div class="brand-name">JACK DRACH</div>
+    </a>
+  </div>
+</nav>
+
+<div class="docs-wrap">
+
+  <a href="index.html" class="back-link">← Back to Portfolio</a>
+
+  <div class="page-head">
+    <h1>Design Documents</h1>
+    <p>The math, mechanics, and design thinking behind each game.</p>
+  </div>
+
+  <div class="doc-list">
+
+    <div class="doc-card">
+      <div>
+        <div class="doc-card-sub">Game Design Document</div>
+        <div class="doc-card-name">Gingerbread's Grand Gables</div>
+      </div>
+      <a class="doc-btn" href="Design-Docs/Gingerbreads-Grand-Gables-GDD.pdf" target="_blank" rel="noopener">View Design Doc →</a>
+    </div>
+
+    <div class="doc-card">
+      <div>
+        <div class="doc-card-sub">Game Design Document</div>
+        <div class="doc-card-name">Ze Claw</div>
+      </div>
+      <a class="doc-btn" href="Design-Docs/Ze_Claw_Design_Document.pdf" target="_blank" rel="noopener">View Design Doc →</a>
+    </div>
+
+    <div class="doc-card">
+      <div>
+        <div class="doc-card-sub">Game Design Document</div>
+        <div class="doc-card-name">Jack's Beanstalk Sky Drop</div>
+      </div>
+      <a class="doc-btn" href="Design-Docs/JBSD_Game_Design_Document.pdf" target="_blank" rel="noopener">View Design Doc →</a>
+    </div>
+
+    <div class="doc-card">
+      <div>
+        <div class="doc-card-sub">Game Design Document</div>
+        <div class="doc-card-name">Super Sundae Scatter</div>
+      </div>
+      <a class="doc-btn" href="Design-Docs/Super-Sundae-Scatter-GDD.pdf" target="_blank" rel="noopener">View Design Doc →</a>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div>© 2026 Jack Drach · A slot design portfolio</div>
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/in/jack-drach-a7117a200/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="assets/Jack_Drach_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
