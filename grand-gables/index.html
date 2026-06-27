@@ -66,10 +66,33 @@
       border-radius: 6px;
       transition: width 0.15s linear;
     }
+    .back-to-portfolio {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 9999;
+      pointer-events: auto;
+      text-decoration: none;
+      background: #1a0f3d;
+      border: 1px solid #d4a017;
+      color: #ffd700;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-weight: 600;
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 14px;
+      transition: background 0.2s ease, box-shadow 0.2s ease;
+    }
+    .back-to-portfolio:hover {
+      background: #2a1a55;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    }
   </style>
   <script type="module" crossorigin src="/grand-gables/assets/index-Br_185vs.js"></script>
 </head>
 <body>
+
+  <a href="/" class="back-to-portfolio">← All Games</a>
 
   <div id="loading-overlay">
     <div id="loading-content">
