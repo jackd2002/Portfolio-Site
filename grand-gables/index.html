@@ -23,6 +23,8 @@
       transform-origin: top left;
     }
 
+    /* Loading overlay — covers the screen until the game signals it has rendered.
+       Dismissed by the 'game:ready' event dispatched from main.ts (see below). */
     #loading-overlay {
       position: fixed;
       inset: 0;
@@ -72,26 +74,26 @@
       left: 12px;
       z-index: 9999;
       pointer-events: auto;
-      text-decoration: none;
+      display: inline-block;
       background: #1a0f3d;
       border: 1px solid #d4a017;
-      color: #ffd700;
       border-radius: 8px;
       padding: 8px 14px;
+      color: #ffd700;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
       font-weight: 600;
-      font-family: system-ui, -apple-system, sans-serif;
       font-size: 14px;
+      text-decoration: none;
       transition: background 0.2s ease, box-shadow 0.2s ease;
     }
     .back-to-portfolio:hover {
-      background: #2a1a55;
-      box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+      background: #2a1a5a;
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.45);
     }
   </style>
-  <script type="module" crossorigin src="/grand-gables/assets/index-Br_185vs.js"></script>
+  <script type="module" crossorigin src="/grand-gables/assets/index-DyxPDs8N.js"></script>
 </head>
 <body>
-
   <a href="/" class="back-to-portfolio">← All Games</a>
 
   <div id="loading-overlay">
@@ -105,13 +107,21 @@
   </div>
 
   <script>
+    // Loading overlay controller. The bar creeps to 80% while the game boots, then
+    // fills and fades ONLY when the game tells us it is truly rendered — main.ts
+    // dispatches window 'game:ready' after all assets load and the first frame is
+    // drawn. A 15s safety timer fades out anyway so the overlay can never get stuck.
+    //
+    // This inline script runs during parse, before the deferred module (main.ts),
+    // so the 'game:ready' listener is always registered before the event can fire.
     (function () {
       var bar = document.getElementById('loading-bar');
       var overlay = document.getElementById('loading-overlay');
       var progress = 0;
       var completed = false;
 
-      // Animate 0→80% over ~2400ms (30ms × 80 steps)
+      // Creep 0→80% over ~2400ms (30ms × 80 steps) so there's visible motion while
+      // textures load. The final 80→100% jump happens in complete().
       var ticker = setInterval(function () {
         if (progress < 80) {
           progress += 1;
@@ -135,8 +145,11 @@
         }, 250);
       }
 
-      window.addEventListener('load', complete);
-      setTimeout(complete, 3000);
+      // Primary signal: the game is fully constructed and the first frame is painted.
+      window.addEventListener('game:ready', complete);
+
+      // Safety net: never stay stuck if 'game:ready' fails to fire for any reason.
+      setTimeout(complete, 15000);
     })();
   </script>
 
