@@ -1,0 +1,775 @@
+{
+  "frames": {
+    "archie_idle_00.png": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_01.png": {
+      "frame": {
+        "x": 260,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_02.png": {
+      "frame": {
+        "x": 520,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_03.png": {
+      "frame": {
+        "x": 780,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_04.png": {
+      "frame": {
+        "x": 1040,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_05.png": {
+      "frame": {
+        "x": 1300,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_06.png": {
+      "frame": {
+        "x": 0,
+        "y": 444,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_07.png": {
+      "frame": {
+        "x": 260,
+        "y": 444,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_08.png": {
+      "frame": {
+        "x": 520,
+        "y": 444,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_09.png": {
+      "frame": {
+        "x": 780,
+        "y": 444,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_10.png": {
+      "frame": {
+        "x": 1040,
+        "y": 444,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_11.png": {
+      "frame": {
+        "x": 1300,
+        "y": 444,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_12.png": {
+      "frame": {
+        "x": 0,
+        "y": 888,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_13.png": {
+      "frame": {
+        "x": 260,
+        "y": 888,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_14.png": {
+      "frame": {
+        "x": 520,
+        "y": 888,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_15.png": {
+      "frame": {
+        "x": 780,
+        "y": 888,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_16.png": {
+      "frame": {
+        "x": 1040,
+        "y": 888,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_17.png": {
+      "frame": {
+        "x": 1300,
+        "y": 888,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_18.png": {
+      "frame": {
+        "x": 0,
+        "y": 1332,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_19.png": {
+      "frame": {
+        "x": 260,
+        "y": 1332,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_20.png": {
+      "frame": {
+        "x": 520,
+        "y": 1332,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_21.png": {
+      "frame": {
+        "x": 780,
+        "y": 1332,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_22.png": {
+      "frame": {
+        "x": 1040,
+        "y": 1332,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_23.png": {
+      "frame": {
+        "x": 1300,
+        "y": 1332,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_24.png": {
+      "frame": {
+        "x": 0,
+        "y": 1776,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_25.png": {
+      "frame": {
+        "x": 260,
+        "y": 1776,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_26.png": {
+      "frame": {
+        "x": 520,
+        "y": 1776,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_27.png": {
+      "frame": {
+        "x": 780,
+        "y": 1776,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_28.png": {
+      "frame": {
+        "x": 1040,
+        "y": 1776,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_29.png": {
+      "frame": {
+        "x": 1300,
+        "y": 1776,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_30.png": {
+      "frame": {
+        "x": 0,
+        "y": 2220,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_31.png": {
+      "frame": {
+        "x": 260,
+        "y": 2220,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_32.png": {
+      "frame": {
+        "x": 520,
+        "y": 2220,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_33.png": {
+      "frame": {
+        "x": 780,
+        "y": 2220,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_34.png": {
+      "frame": {
+        "x": 1040,
+        "y": 2220,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    },
+    "archie_idle_35.png": {
+      "frame": {
+        "x": 1300,
+        "y": 2220,
+        "w": 260,
+        "h": 444
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 444
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 444
+      }
+    }
+  },
+  "animations": {
+    "idle": [
+      "archie_idle_00.png",
+      "archie_idle_01.png",
+      "archie_idle_02.png",
+      "archie_idle_03.png",
+      "archie_idle_04.png",
+      "archie_idle_05.png",
+      "archie_idle_06.png",
+      "archie_idle_07.png",
+      "archie_idle_08.png",
+      "archie_idle_09.png",
+      "archie_idle_10.png",
+      "archie_idle_11.png",
+      "archie_idle_12.png",
+      "archie_idle_13.png",
+      "archie_idle_14.png",
+      "archie_idle_15.png",
+      "archie_idle_16.png",
+      "archie_idle_17.png",
+      "archie_idle_18.png",
+      "archie_idle_19.png",
+      "archie_idle_20.png",
+      "archie_idle_21.png",
+      "archie_idle_22.png",
+      "archie_idle_23.png",
+      "archie_idle_24.png",
+      "archie_idle_25.png",
+      "archie_idle_26.png",
+      "archie_idle_27.png",
+      "archie_idle_28.png",
+      "archie_idle_29.png",
+      "archie_idle_30.png",
+      "archie_idle_31.png",
+      "archie_idle_32.png",
+      "archie_idle_33.png",
+      "archie_idle_34.png",
+      "archie_idle_35.png"
+    ]
+  },
+  "meta": {
+    "app": "archie-idle-rig",
+    "version": "1.2",
+    "image": "archie-idle.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 1560,
+      "h": 2664
+    },
+    "scale": "1"
+  }
+}

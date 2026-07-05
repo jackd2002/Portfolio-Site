@@ -400,6 +400,14 @@
   }
 
   /* Banner backgrounds */
+  .banner-atomic {
+    background-image: url('assets/Atomic-archie-button.png');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .banner-atomic::after { background: none; }
+
   .banner-zeclaw {
     background-image: url('assets/ze-claw-button.png');
     background-size: cover;
@@ -605,6 +613,8 @@
 </div>
 
 <div class="games-grid">
+
+  <a href="#" class="game-banner banner-atomic"></a>
 
   <a href="grand-gables/" class="game-banner banner-gables">
     <div class="gg-snow" aria-hidden="true">

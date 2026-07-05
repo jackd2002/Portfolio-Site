@@ -47,11 +47,28 @@
         align-items: center;
         justify-content: center;
         background: #1a0f3d;
-        transition: opacity 0.5s ease;
+        transition: opacity 0.3s ease;
       }
       #loading-screen.hidden {
         opacity: 0;
         pointer-events: none;
+      }
+      /* Error state: stop the bar, tint it red, reveal the message. */
+      #loading-screen.error #loading-bar-fill {
+        background: linear-gradient(to right, #7a1d1d, #ff5a5a, #7a1d1d);
+      }
+      #loading-error {
+        display: none;
+        margin-top: 18px;
+        max-width: 60vw;
+        text-align: center;
+        color: #ff8a8a;
+        font-family: system-ui, -apple-system, sans-serif;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+      #loading-screen.error #loading-error {
+        display: block;
       }
       #loading-screen img {
         width: 180px;
@@ -76,7 +93,7 @@
         transition: width 0.25s ease;
       }
     </style>
-    <script type="module" crossorigin src="/beanstalk/assets/index-AF1pyCvY.js"></script>
+    <script type="module" crossorigin src="/beanstalk/assets/index-B8HrjqLn.js"></script>
   </head>
   <body>
     <div id="loading-screen">
@@ -84,6 +101,7 @@
       <div id="loading-bar-track">
         <div id="loading-bar-fill"></div>
       </div>
+      <div id="loading-error"></div>
     </div>
 
     <a href="/" class="back-to-portfolio">← All Games</a>
@@ -92,40 +110,58 @@
       (function () {
         var screen = document.getElementById('loading-screen');
         var fill = document.getElementById('loading-bar-fill');
+        var note = document.getElementById('loading-error');
         if (!screen || !fill) return;
 
-        var progress = 0;
         var done = false;
+        var errored = false;
+        var shown = 0;   // highest fraction shown — keep the bar monotonic
 
-        // Creep toward 80% while the game loads.
-        var timer = setInterval(function () {
-          if (done) return;
-          if (progress < 80) {
-            progress += Math.max(0.5, (80 - progress) * 0.08);
-            if (progress > 80) progress = 80;
-            fill.style.width = progress + '%';
-          }
-        }, 120);
+        // REAL progress: main() reports the actual asset-load fraction (0..1).
+        // The bar reflects true completion, not a timer, and only reaches 100%
+        // when assets are genuinely done.
+        window.__beanstalkProgress = function (f) {
+          if (done || errored) return;
+          if (typeof f !== 'number' || isNaN(f)) return;
+          if (f < 0) f = 0;
+          if (f > 1) f = 1;
+          if (f <= shown) return;
+          shown = f;
+          fill.style.width = (f * 100).toFixed(1) + '%';
+        };
 
         function complete() {
-          if (done) return;
+          if (done || errored) return;
           done = true;
-          clearInterval(timer);
+          clearTimeout(safety);
           fill.style.width = '100%';
+          // Prompt dismissal: just the ~0.3s fade, no extra pre-wait.
+          screen.classList.add('hidden');
           setTimeout(function () {
-            screen.classList.add('hidden');
-            setTimeout(function () {
-              if (screen.parentNode) screen.parentNode.removeChild(screen);
-            }, 600);
-          }, 200);
+            if (screen.parentNode) screen.parentNode.removeChild(screen);
+          }, 300);   // matches the 0.3s opacity transition
         }
 
-        // The game calls this once it's fully initialised; fall back to the
-        // window load event so the screen always clears.
+        function fail(message) {
+          if (done || errored) return;
+          errored = true;
+          clearTimeout(safety);
+          screen.classList.add('error');   // tint the bar, reveal the message
+          if (note) note.textContent = message || 'Failed to load. Please refresh the page.';
+        }
+
+        // game:ready is the REAL dismissal signal — fired by main() only after
+        // every asset load and all init complete. __beanstalkError surfaces a
+        // load/init failure as an error state instead of a broken board.
         window.__beanstalkReady = complete;
-        window.addEventListener('load', function () {
-          setTimeout(complete, 800);
-        });
+        window.__beanstalkError = function (message) { fail(message); };
+
+        // Safety cap: if neither ready nor error ever fires (e.g. a silent
+        // network stall), show an error rather than hanging forever or
+        // dismissing onto a broken board.
+        var safety = setTimeout(function () {
+          fail('Loading timed out. Please refresh the page.');
+        }, 30000);
       })();
     </script>
   </body>

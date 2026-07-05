@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atomic Archie — Base Game</title>
+    <!-- Rounded friendly font for the info/rules panel (house style). Progressive
+         enhancement: if it fails to load (offline/deploy), the panel falls back to
+         Segoe UI Rounded / system rounded fonts via its own CSS stack. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: #1a0800; /* near-black brown — the sliver before the overlay paints */
+        overflow: hidden;
+      }
+      #app {
+        width: 100vw;
+        height: 100vh;
+      }
+      canvas {
+        display: block;
+      }
+
+      /* ===== "← All Games" PORTFOLIO BACK BUTTON ============================
+         Fixed top-left pill (gold-on-purple, house style, shared across games).
+         Lives at page level ABOVE the canvas so it survives rebuilds and is
+         always reachable; sits clear of the in-game UI. This is SEPARATE from
+         the loader's own .all-games-btn (which fades out with the overlay). */
+      .portfolio-back {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 10000; /* above the canvas AND the loading overlay */
+        padding: 8px 14px;
+        background: #1a0f3d; /* dark purple */
+        border: 1px solid #d4a017; /* gold */
+        border-radius: 8px;
+        color: #ffd700; /* gold text */
+        font-family: -apple-system, "Segoe UI", sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        pointer-events: auto;
+        transition: background 0.15s ease, border-color 0.15s ease;
+      }
+      .portfolio-back:hover {
+        background: #241456; /* brighten */
+        border-color: #ffd700;
+      }
+
+      /* ===== LOADING OVERLAY (portfolio purple/gold) =======================
+         Plain HTML/CSS, fully decoupled from the game engine. Colors/styling are
+         the shared portfolio-loader spec (purple bg + goldenrod bar), NOT Atomic
+         Archie's in-game atompunk palette. The icon does a gentle pulse; the bar
+         fill is driven by REAL asset progress (see the inline script + the
+         game:progress event), never a timer. */
+      #loading-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #1a0f3d; /* purple */
+        transition: opacity 0.45s ease;
+      }
+      #loading-overlay.loading-hide {
+        opacity: 0;
+      }
+      .loading-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 34px;
+        width: min(46vw, 460px);
+      }
+      .loading-icon {
+        width: 180px; /* spec: 180px wide */
+        height: auto;
+        display: block;
+        animation: loading-pulse 1.4s ease-in-out infinite;
+      }
+      @keyframes loading-pulse {
+        0%,
+        100% {
+          transform: scale(0.94);
+          opacity: 0.85;
+        }
+        50% {
+          transform: scale(1.06);
+          opacity: 1;
+        }
+      }
+      .loading-track {
+        width: 100%;
+        height: 22px;
+        background: rgba(255, 255, 255, 0.12); /* spec track bg */
+        border: 1px solid rgba(212, 160, 23, 0.5); /* #d4a017 @ 50% */
+        border-radius: 999px;
+        overflow: hidden;
+      }
+      .loading-fill {
+        width: 0%;
+        height: 100%;
+        border-radius: 999px;
+        /* spec: dark-goldenrod -> gold -> dark-goldenrod */
+        background: linear-gradient(to right, #b8860b, #ffd700, #b8860b);
+        transition: width 0.25s ease; /* smooth the real-progress jumps */
+      }
+      .loading-label {
+        font-family: Arial, sans-serif; /* spec: Arial */
+        color: #ffffff;
+        opacity: 0.8;
+        font-size: 14px; /* spec value was illegible in paste; sensible default */
+        letter-spacing: 1px;
+      }
+      /* "← All Games" portfolio button — spec styling (system-ui font, NOT Arial).
+         Lives inside the overlay so it fades out with the loader. NOTE: href is a
+         placeholder — set it to your portfolio index. */
+      .all-games-btn {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        padding: 8px 14px;
+        background: #1a0f3d;
+        border: 1px solid #d4a017;
+        border-radius: 8px;
+        color: #ffffff;
+        font-family: -apple-system, "Segoe UI", sans-serif;
+        font-size: 14px;
+        text-decoration: none;
+      }
+    </style>
+    <script type="module" crossorigin src="/atomic-archie/assets/index-SndSnXEv.js"></script>
+  </head>
+  <body>
+    <!-- Portfolio back link — fixed top-left, above the canvas, survives rebuilds. -->
+    <a class="portfolio-back" href="/">← All Games</a>
+    <div id="app"></div>
+
+    <!-- =====================================================================
+         LOADING OVERLAY — decoupled from the engine (handover pattern).
+
+         This markup + the inline <script> below are plain HTML: the script is
+         NOT a module, so it runs DURING HTML PARSE — before the deferred
+         /src/main.ts module even downloads. That guarantees the overlay is on
+         screen instantly AND its listeners are registered before the game can
+         ever dispatch, so there is no race by construction.
+
+         The overlay knows NOTHING about PixiJS, assets, or the game. The whole
+         contract is two window events:
+           * "game:progress" {loaded,total,fraction} — REAL asset load fraction,
+             drives the bar fill 0 -> 90%.
+           * "game:ready" — the game shouts this once the FIRST FRAME is actually
+             painted; the overlay snaps 90 -> 100%, fades, and removes itself.
+         A 15s failsafe runs the same completion path if game:ready never fires,
+         so the overlay physically cannot get stuck.
+    ====================================================================== -->
+    <div id="loading-overlay">
+      <!-- Portfolio back button (per spec). href is a PLACEHOLDER — point it at
+           your games index. -->
+      <a class="all-games-btn" href="../">← All Games</a>
+      <div class="loading-inner">
+        <!-- src is set at runtime from document.baseURI in the inline script below.
+             We do NOT hardcode /atomic-archie/ here: Vite double-applies the base to raw
+             HTML asset URLs in DEV (yields /atomic-archie/atomic-archie/…), 404ing
+             the icon. document.baseURI already carries the correct single base in
+             both dev and the /atomic-archie/ deploy, so it resolves right everywhere. -->
+        <img id="loading-icon" class="loading-icon" alt="Loading" />
+        <div class="loading-track"><div class="loading-fill" id="loading-fill"></div></div>
+        <div class="loading-label" id="loading-label">LOADING… 0%</div>
+      </div>
+    </div>
+
+    <script>
+      /* Inline (non-module) so it executes during parse — see the comment above.
+         Listeners are registered here, before main.ts runs. */
+      (function () {
+        var overlay = document.getElementById('loading-overlay');
+        var fill = document.getElementById('loading-fill');
+        var label = document.getElementById('loading-label');
+
+        // Resolve the loading icon against the document's own base URL. This gives
+        // the correct single-base path in BOTH dev and the /atomic-archie/ deploy,
+        // sidestepping Vite's /atomic-archie/-in-HTML double-base bug (see the <img>).
+        var iconEl = document.getElementById('loading-icon');
+        if (iconEl) {
+          iconEl.src = new URL('assets/loading-icon.png', document.baseURI).href;
+        }
+        var start = performance.now();
+        var MIN_MS = 400; // min on-screen time so a fast load doesn't flash
+        var done = false;
+
+        // REAL asset progress drives the bar to 90%. The last 90->100 is the
+        // render handshake (game:ready). This is genuine load progress — NOT a
+        // timer creep.
+        function setProgress(frac) {
+          if (done) return;
+          if (frac < 0) frac = 0;
+          if (frac > 1) frac = 1;
+          var pct = Math.round(frac * 90);
+          fill.style.width = pct + '%';
+          label.textContent = 'LOADING… ' + pct + '%';
+        }
+
+        // Snap to 100%, honour the min display time, then fade + remove. Idempotent.
+        function complete() {
+          if (done) return;
+          done = true;
+          fill.style.width = '100%';
+          label.textContent = 'LOADING… 100%';
+          var wait = Math.max(0, MIN_MS - (performance.now() - start));
+          setTimeout(function () {
+            overlay.classList.add('loading-hide'); // fade opacity
+            setTimeout(function () {
+              overlay.style.display = 'none';
+              // The loading screen is now fully gone — let the game know so the
+              // opening intro can start typing exactly here (decoupled, like the
+              // two events above; the game listens for this once).
+              window.dispatchEvent(new Event('game:loader-hidden'));
+            }, 450); // matches the CSS opacity transition
+          }, wait);
+        }
+
+        window.addEventListener('game:progress', function (e) {
+          var d = (e && e.detail) || {};
+          var frac =
+            typeof d.fraction === 'number'
+              ? d.fraction
+              : d.total
+                ? d.loaded / d.total
+                : 0;
+          setProgress(frac);
+        });
+        window.addEventListener('game:ready', complete);
+
+        // Failsafe: the overlay can never get stuck, even if game:ready is lost.
+        setTimeout(complete, 15000);
+      })();
+    </script>
+
+  </body>
+</html>
