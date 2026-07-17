@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reaching Hearts</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden; /* nothing peeks around the overlay */
+        background: #0b0d12;
+      }
+      #app {
+        width: 100vw;
+        height: 100vh;
+      }
+
+      /* --- "← All Games" back button (top-left, above the canvas) --------------
+         Reaching Hearts palette: deep royal-purple/navy with antique gold. */
+      #back-to-games {
+        position: fixed;
+        top: 8px;
+        left: 8px;
+        z-index: 10000;
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        padding: 3px 8px; /* small — tucked in the corner so it barely meets the BUY button */
+        font-family: "Cinzel", Georgia, "Times New Roman", serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        color: #e6c877; /* antique gold */
+        text-decoration: none;
+        background: rgba(18, 14, 40, 0.72); /* royal-purple-navy, translucent */
+        border: 1px solid rgba(201, 162, 75, 0.55); /* antique gold rim */
+        border-radius: 999px;
+        backdrop-filter: blur(4px);
+        transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      }
+      #back-to-games:hover {
+        background: rgba(30, 22, 60, 0.85);
+        border-color: rgba(230, 200, 119, 0.9);
+        color: #f4dd9a;
+      }
+
+      /* --- Loading overlay — painted instantly during HTML parse -------------- */
+      #loading-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 26px;
+        /* deep midnight-navy → royal-purple vignette, matching the game's night look */
+        background: radial-gradient(
+          ellipse at center,
+          #1a1338 0%,
+          #0c0a1c 62%,
+          #060509 100%
+        );
+        transition: opacity 0.5s ease;
+        opacity: 1;
+      }
+      #loading-overlay img {
+        width: 200px;
+        height: 200px;
+        object-fit: contain;
+        filter: drop-shadow(0 6px 22px rgba(0, 0, 0, 0.55));
+        animation: loading-breathe 2.4s ease-in-out infinite;
+      }
+      @keyframes loading-breathe {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.94;
+        }
+        50% {
+          transform: scale(1.04);
+          opacity: 1;
+        }
+      }
+      #loading-overlay .loading-label {
+        font-family: "Cinzel", Georgia, "Times New Roman", serif;
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        color: #e6c877; /* antique gold */
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+      }
+      #loading-overlay .loading-track {
+        width: 280px;
+        max-width: 60vw;
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(230, 200, 119, 0.14); /* faint gold track */
+        border: 1px solid rgba(201, 162, 75, 0.35);
+        overflow: hidden;
+      }
+      #loading-overlay .loading-fill {
+        width: 0%;
+        height: 100%;
+        border-radius: 999px;
+        /* antique-gold fill with a brighter core */
+        background: linear-gradient(90deg, #a9822f 0%, #e6c877 55%, #f4dd9a 100%);
+        box-shadow: 0 0 10px rgba(230, 200, 119, 0.55);
+        transition: width 0.2s ease;
+      }
+    </style>
+    <script type="module" crossorigin src="/reaching-hearts/assets/index-DxDNB_6B.js"></script>
+  </head>
+  <body>
+    <!-- ORDER IS LOAD-BEARING: the back button + loading overlay + inline script
+         come BEFORE the #app div and the deferred module script, so the overlay
+         paints instantly and the 'game:ready' listener is registered before the
+         game module can ever dispatch it. -->
+    <a id="back-to-games" href="/">&larr; All Games</a>
+
+    <div id="loading-overlay">
+      <img src="assets/loading-icon.png" alt="Loading" />
+      <div class="loading-label">Loading&hellip;</div>
+      <div class="loading-track">
+        <div class="loading-fill" id="loading-bar-fill"></div>
+      </div>
+    </div>
+
+    <script>
+      // Runs during HTML parse (before the deferred module). Creeps the bar to 80%
+      // over ~2400ms for visible motion, fills to 100% + fades out on 'game:ready',
+      // and has a 15s safety net so it can never get permanently stuck.
+      (function () {
+        var overlay = document.getElementById("loading-overlay");
+        var fill = document.getElementById("loading-bar-fill");
+        if (!overlay || !fill) return;
+        var CREEP_TO = 80;
+        var CREEP_MS = 2400;
+        var start = Date.now();
+        var progress = 0;
+        var creep = setInterval(function () {
+          var t = Math.min(1, (Date.now() - start) / CREEP_MS);
+          progress = Math.max(progress, t * CREEP_TO);
+          fill.style.width = progress + "%";
+          if (t >= 1) clearInterval(creep);
+        }, 30);
+
+        var done = false;
+        function finish() {
+          if (done) return;
+          done = true;
+          clearInterval(creep);
+          fill.style.width = "100%";
+          setTimeout(function () {
+            overlay.style.opacity = "0";
+            setTimeout(function () {
+              if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+            }, 500); // matches the CSS opacity transition
+          }, 150); // let the 100% fill register before fading
+        }
+
+        // The game dispatches this once it has booted AND painted its first frame.
+        window.addEventListener("game:ready", finish);
+        // Safety net: fade out regardless after 15s so it can never stick.
+        setTimeout(finish, 15000);
+      })();
+    </script>
+
+    <!-- The SPIN button (and the whole control bar) lives INSIDE the Pixi canvas
+         — see src/ui.ts buildBar(). The module is deferred, so the inline script
+         above always registers its 'game:ready' listener first. -->
+    <div id="app"></div>
+  </body>
+</html>
