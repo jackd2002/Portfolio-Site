@@ -267,7 +267,7 @@
   /* Section title */
   .section-title {
     max-width: 1240px;
-    margin: 16px auto 12px;
+    margin: 10px auto 10px;
     padding: 0 24px;
     display: flex;
     align-items: center;
@@ -606,58 +606,6 @@
   }
   .footer-links a:hover { color: white; }
 
-  /* Live RTP Monitor */
-  .rtp-card {
-    background: rgba(0,0,0,0.2);
-    border-radius: 16px;
-    padding: 8px;
-    display: grid;
-    grid-template-columns: 1fr minmax(0, 300px);
-    gap: 14px;
-    align-items: center;
-  }
-
-  .rtp-eyebrow {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--yellow);
-    margin-bottom: 1px;
-  }
-
-  .rtp-text h2 {
-    font-family: 'Bungee', cursive;
-    font-size: 17px;
-    font-weight: normal;
-    line-height: 1.2;
-    margin-bottom: 1px;
-    color: #ffd700;
-  }
-
-  .rtp-subhead {
-    font-style: italic;
-    color: var(--text-dim);
-    font-size: 14px;
-    margin-bottom: 1px;
-  }
-
-  .rtp-body {
-    color: var(--text-dim);
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 1.45;
-  }
-
-  .rtp-preview {
-    display: block;
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    border-radius: 12px;
-  }
-
   @media (max-width: 900px) {
     .games-grid { grid-template-columns: 1fr; }
     .categories { grid-template-columns: repeat(2, 1fr); }
@@ -665,7 +613,6 @@
     .featured-art { display: none; }
 .intro-card { flex-direction: column; align-items: flex-start; padding: 20px; }
     .top-row { grid-template-columns: 1fr; }
-    .rtp-card { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -692,16 +639,6 @@
       <a href="assets/Jack_Drach_Resume.pdf" target="_blank" rel="noopener" class="intro-btn intro-btn-primary">Resume</a>
       <a href="https://www.linkedin.com/in/jack-drach-a7117a200/" target="_blank" rel="noopener" class="intro-btn intro-btn-secondary">LinkedIn</a>
     </div>
-  </div>
-
-  <div class="rtp-card">
-    <div class="rtp-text">
-      <div class="rtp-eyebrow">NEW — BUILT INTO EVERY GAME</div>
-      <h2>Live RTP Monitor</h2>
-      <div class="rtp-subhead">A real-time math instrument built into every game.</div>
-      <p class="rtp-body">A read-only observer that tracks return-to-player live against the certified target, without touching the RNG or outcomes. Includes an in-browser 100k-spin convergence simulation through the real engine, always reporting RTP with its confidence interval.</p>
-    </div>
-    <img src="assets/rtp-monitor.png" alt="Live RTP Monitor — Quick Sim convergence snapshot" class="rtp-preview" id="rtp-monitor-preview">
   </div>
 </div>
 

@@ -98,7 +98,7 @@
         text-transform: uppercase;
       }
     </style>
-    <script type="module" crossorigin src="/wrath-of-hapi/assets/index-VxpbWVFu.js"></script>
+    <script type="module" crossorigin src="/wrath-of-hapi/assets/index-DGNe4KsJ.js"></script>
   </head>
   <body>
     <!-- Back to the games index (site root). Kept in SOURCE so every rebuild carries it. -->
@@ -117,12 +117,18 @@
     </div>
     <script>
       /* Plain (non-module) so it runs during parse, before the deferred game bundle.
-         Animates the bar 0 -> 80% while loading, then snaps to 100% and fades out on
-         'game:ready'. A 15s fallback guarantees it can never get stuck. complete() is
-         guarded so the event path and the fallback can't double-fire. */
+         Drives a REAL percentage bar from the game's 'game:progress' CustomEvent
+         (detail 0..1): asset loading fills 0 -> 90%, scene build/layout + first paint
+         carry 90 -> 100%, hitting 100% exactly as 'game:ready' fires and the overlay
+         fades. Before the module bundle has loaded (and can emit progress) a tiny
+         warm-up creep keeps the bar from sitting dead; real progress takes over the
+         instant the first event arrives, and the shown value is monotonic so it never
+         jumps backward. A 15s fallback guarantees it can never get stuck. complete()
+         is guarded so the event path and the fallback can't double-fire. */
       (function () {
         var overlay = document.getElementById('loading-overlay');
         var fill = document.getElementById('loading-bar-fill');
+        var text = document.getElementById('loading-text');
         var icon = document.getElementById('loading-icon');
         if (!overlay || !fill) return;
 
@@ -131,21 +137,40 @@
         if (icon) icon.src = new URL('assets/loading-icon.png', document.baseURI).href;
 
         var done = false;
-        var progress = 0;
+        var gotReal = false; // has a 'game:progress' event arrived yet?
+        var shown = 0; // monotonic percentage actually displayed (0..100)
+
+        function setPct(p) {
+          if (p < shown) p = shown; // never move backward
+          shown = p;
+          fill.style.width = p.toFixed(1) + '%';
+          if (text) text.textContent = Math.round(p) + '%';
+        }
+        setPct(0);
+
+        // Warm-up creep toward a low cap, ONLY until the first real event. This just
+        // covers the bundle-download window; it is abandoned the moment real progress
+        // starts (and can't overtake it, since real values are >= this cap by then).
+        var creep = 0;
         var tick = setInterval(function () {
-          if (done) return;
-          // Ease toward 80% so the bar keeps moving while the bundle streams in.
-          progress += (80 - progress) * 0.06 + 0.4;
-          if (progress > 80) progress = 80;
-          fill.style.width = progress.toFixed(1) + '%';
+          if (done || gotReal) return;
+          creep += (8 - creep) * 0.08 + 0.2;
+          if (creep > 8) creep = 8;
+          setPct(creep);
         }, 120);
+
+        window.addEventListener('game:progress', function (e) {
+          gotReal = true;
+          var f = e && e.detail;
+          if (typeof f === 'number' && f >= 0) setPct(f * 100);
+        });
 
         function complete() {
           if (done) return;
           done = true;
           clearInterval(tick);
           clearTimeout(fallback);
-          fill.style.width = '100%';
+          setPct(100);
           overlay.style.opacity = '0';
           // Remove after the opacity fade (matches the 0.4s transition above).
           setTimeout(function () {
