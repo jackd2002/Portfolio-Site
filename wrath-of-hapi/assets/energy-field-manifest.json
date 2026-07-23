@@ -34,17 +34,17 @@
     }
   },
   "playback": {
-    "frameWidth": 489,
-    "frameHeight": 409,
-    "frameCount": 36,
+    "frameWidth": 367,
+    "frameHeight": 307,
+    "frameCount": 24,
     "columns": 6,
-    "rows": 6,
-    "fps": 18,
+    "rows": 4,
+    "fps": 12,
     "durationMs": 2000,
     "loop": true,
     "loopIn": 0,
-    "loopOut": 35,
-    "renderScale": 0.5,
+    "loopOut": 23,
+    "renderScale": 0.375,
     "nativeSize": {
       "w": 978,
       "h": 818

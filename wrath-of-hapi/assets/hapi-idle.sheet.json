@@ -1,7 +1,7 @@
 {
  "image": "hapi-idle.sheet.png",
- "frameWidth": 720,
- "frameHeight": 840,
+ "frameWidth": 432,
+ "frameHeight": 504,
  "frames": 60,
  "columns": 8,
  "rows": 8,

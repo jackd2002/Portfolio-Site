@@ -98,7 +98,7 @@
         text-transform: uppercase;
       }
     </style>
-    <script type="module" crossorigin src="/wrath-of-hapi/assets/index-DGNe4KsJ.js"></script>
+    <script type="module" crossorigin src="/wrath-of-hapi/assets/index-CPrXPqqx.js"></script>
   </head>
   <body>
     <!-- Back to the games index (site root). Kept in SOURCE so every rebuild carries it. -->
@@ -178,9 +178,30 @@
           }, 450);
         }
 
+        // Show an error IN the overlay (never uncover a blank canvas). A real WebGL
+        // context loss / boot failure lands here via the game's 'game:error' event.
+        function fail(msg) {
+          if (done) return;
+          done = true;
+          clearInterval(tick);
+          clearTimeout(fallback);
+          if (text) { text.textContent = msg || 'Something went wrong. Please reload.'; text.style.textTransform = 'none'; }
+          var track = document.getElementById('loading-bar-track');
+          if (track) track.style.display = 'none';
+        }
+
+        // The overlay dismisses ONLY on genuine load completion. The previous blind
+        // 15s setTimeout(complete) dismissed unconditionally — so a real GPU crash
+        // presented as a silent blank screen. Now: complete on 'game:ready'; on
+        // 'game:error' surface the message; and the timeout below turns into an ERROR
+        // (not a dismiss) if the game never signals either way.
         window.addEventListener('game:ready', complete, { once: true });
-        // Safety net: complete anyway if the game never signals readiness.
-        var fallback = setTimeout(complete, 15000);
+        window.addEventListener('game:error', function (e) {
+          fail((e && e.detail) || 'The game failed to load. Please reload the page.');
+        });
+        var fallback = setTimeout(function () {
+          fail('The game is taking too long to load. Please reload the page.');
+        }, 30000);
       })();
     </script>
 

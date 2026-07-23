@@ -5,8 +5,8 @@
     "h": 819
   },
   "loopSeconds": 4,
-  "fps": 24,
-  "frames": 96,
+  "fps": 12,
+  "frames": 48,
   "torches": [
     {
       "name": "torchA",

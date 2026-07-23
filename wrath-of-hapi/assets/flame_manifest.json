@@ -1,14 +1,14 @@
 {
-  "frameWidth": 416,
-  "frameHeight": 544,
-  "frameCount": 60,
+  "frameWidth": 208,
+  "frameHeight": 272,
+  "frameCount": 40,
   "columns": 10,
-  "rows": 6,
-  "fps": 24,
+  "rows": 4,
+  "fps": 16,
   "durationMs": 2500,
   "loop": true,
   "loopIn": 0,
-  "loopOut": 59,
+  "loopOut": 39,
   "flameBase": {
     "x": 0.5,
     "y": 0.9559
