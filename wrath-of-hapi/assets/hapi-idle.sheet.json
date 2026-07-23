@@ -1,0 +1,23 @@
+{
+ "image": "hapi-idle.sheet.png",
+ "frameWidth": 720,
+ "frameHeight": 840,
+ "frames": 60,
+ "columns": 8,
+ "rows": 8,
+ "fps": 12,
+ "durationMs": 5000,
+ "loop": true,
+ "loopInFrame": 0,
+ "loopOutFrame": 59,
+ "auraFree": true,
+ "contents": "body + rigid staff + contact shadow ONLY - no aura, no glow. Transparent bg. Aura is a separate in-engine particle layer.",
+ "cropStageRect": [
+  220,
+  20,
+  660,
+  770
+ ],
+ "stage": "1280x800 reference",
+ "scale": 1.0909
+}

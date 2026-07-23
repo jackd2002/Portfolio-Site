@@ -1,0 +1,41 @@
+{
+ "image": "hapi-strike.sheet.png",
+ "frameWidth": 672,
+ "frameHeight": 784,
+ "frames": 64,
+ "columns": 8,
+ "rows": 8,
+ "fps": 20,
+ "durationMs": 3200,
+ "loop": false,
+ "impactFrame": 17,
+ "payoffFrames": [
+  17,
+  35
+ ],
+ "recoilFrames": [
+  35,
+  63
+ ],
+ "auraFree": true,
+ "contents": "body + rigid staff + contact shadow ONLY - no aura. Staff raises frames 0-13, slams on 17. Popup/burst/rings/flash NOT baked - spawn from timeline events.",
+ "cropStageRect": [
+  220,
+  20,
+  660,
+  770
+ ],
+ "stage": "1280x800 reference",
+ "scale": 1.0182,
+ "hiResPages": {
+  "note": "same 64 frames at 720x840 split across 2 PNGs (single-file 720x840 exceeded 30MiB)",
+  "images": [
+   "hapi-strike.sheet.page0.png",
+   "hapi-strike.sheet.page1.png"
+  ],
+  "frameWidth": 720,
+  "frameHeight": 840,
+  "rowsPerImage": 4,
+  "framesPerImage": 32
+ }
+}

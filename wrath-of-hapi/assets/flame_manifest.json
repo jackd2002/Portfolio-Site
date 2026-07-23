@@ -1,0 +1,150 @@
+{
+  "frameWidth": 416,
+  "frameHeight": 544,
+  "frameCount": 60,
+  "columns": 10,
+  "rows": 6,
+  "fps": 24,
+  "durationMs": 2500,
+  "loop": true,
+  "loopIn": 0,
+  "loopOut": 59,
+  "flameBase": {
+    "x": 0.5,
+    "y": 0.9559
+  },
+  "numberSlotSafeArea": {
+    "rx": 0.3125,
+    "ry": 0.1471
+  },
+  "sheets": [
+    {
+      "file": "flame_x1.png",
+      "name": "x1",
+      "level": 0,
+      "numberSlotCenterY": 0.7904,
+      "flameHeightPx": 131,
+      "flameHalfWidthPx": 110
+    },
+    {
+      "file": "flame_low.png",
+      "name": "low",
+      "level": 0.3,
+      "numberSlotCenterY": 0.7904,
+      "flameHeightPx": 216,
+      "flameHalfWidthPx": 123
+    },
+    {
+      "file": "flame_mid.png",
+      "name": "mid",
+      "level": 0.55,
+      "numberSlotCenterY": 0.7561,
+      "flameHeightPx": 286,
+      "flameHalfWidthPx": 133
+    },
+    {
+      "file": "flame_high.png",
+      "name": "high",
+      "level": 0.8,
+      "numberSlotCenterY": 0.707,
+      "flameHeightPx": 356,
+      "flameHalfWidthPx": 144
+    },
+    {
+      "file": "flame_max.png",
+      "name": "max",
+      "level": 1,
+      "numberSlotCenterY": 0.6677,
+      "flameHeightPx": 413,
+      "flameHalfWidthPx": 153
+    }
+  ],
+  "multiplierMapping": {
+    "comment": "level = log2(multiplier)/10. Pick the two sheets whose level brackets it and crossfade: w = (level - a.level)/(b.level - a.level).",
+    "multipliers": [
+      {
+        "multiplier": "x1",
+        "level": 0,
+        "sheetA": "x1",
+        "sheetB": "low",
+        "blend": 0
+      },
+      {
+        "multiplier": "x2",
+        "level": 0.1,
+        "sheetA": "x1",
+        "sheetB": "low",
+        "blend": 0.333
+      },
+      {
+        "multiplier": "x4",
+        "level": 0.2,
+        "sheetA": "x1",
+        "sheetB": "low",
+        "blend": 0.667
+      },
+      {
+        "multiplier": "x8",
+        "level": 0.3,
+        "sheetA": "x1",
+        "sheetB": "low",
+        "blend": 1
+      },
+      {
+        "multiplier": "x16",
+        "level": 0.4,
+        "sheetA": "low",
+        "sheetB": "mid",
+        "blend": 0.4
+      },
+      {
+        "multiplier": "x32",
+        "level": 0.5,
+        "sheetA": "low",
+        "sheetB": "mid",
+        "blend": 0.8
+      },
+      {
+        "multiplier": "x64",
+        "level": 0.6,
+        "sheetA": "mid",
+        "sheetB": "high",
+        "blend": 0.2
+      },
+      {
+        "multiplier": "x128",
+        "level": 0.7,
+        "sheetA": "mid",
+        "sheetB": "high",
+        "blend": 0.6
+      },
+      {
+        "multiplier": "x256",
+        "level": 0.8,
+        "sheetA": "mid",
+        "sheetB": "high",
+        "blend": 1
+      },
+      {
+        "multiplier": "x512",
+        "level": 0.9,
+        "sheetA": "high",
+        "sheetB": "max",
+        "blend": 0.5
+      },
+      {
+        "multiplier": "x1024",
+        "level": 1,
+        "sheetA": "max",
+        "sheetB": "max",
+        "blend": 0
+      }
+    ]
+  },
+  "numberBob": {
+    "amplitudeFrac": 0.015,
+    "periodMs": 2800,
+    "easing": "sine in-out (y = amp * sin(2*PI*t/period))",
+    "note": "amplitude is a fraction of frameHeight; ~8px at native frame scale"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "background": "background.png",
+  "size": {
+    "w": 1456,
+    "h": 819
+  },
+  "loopSeconds": 4,
+  "fps": 24,
+  "frames": 96,
+  "torches": [
+    {
+      "name": "torchA",
+      "sheet": "torchA.json",
+      "x": 0,
+      "y": 308,
+      "w": 152,
+      "h": 168
+    },
+    {
+      "name": "torchB",
+      "sheet": "torchB.json",
+      "x": 236,
+      "y": 428,
+      "w": 116,
+      "h": 146
+    },
+    {
+      "name": "torchC",
+      "sheet": "torchC.json",
+      "x": 360,
+      "y": 470,
+      "w": 96,
+      "h": 140
+    },
+    {
+      "name": "torchD",
+      "sheet": "torchD.json",
+      "x": 384,
+      "y": 612,
+      "w": 88,
+      "h": 116
+    }
+  ]
+}

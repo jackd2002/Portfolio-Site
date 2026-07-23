@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Wrath of Hapi</title>
+    <!-- Cinzel: Roman-inscriptional "carved gold" serif for the live multiplier numbers
+         (torch-flame number + over-Hapi strike callout). Awaited in BootScene before the
+         Pixi scene renders (canvas text does not reflow on late font load). Progressive
+         enhancement: if it fails, the text falls back to a system serif (see gameConfig
+         MULTIPLIER_FONT_FAMILY). -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: #0b0a14;
+        overflow: hidden;
+      }
+      #app {
+        position: fixed;
+        inset: 0;
+      }
+      #app canvas {
+        display: block;
+      }
+      /* "← All Games" pill — links back to the site root; shared style across the
+         deployed Pixi games. Fixed top-left, above the canvas, always clickable. */
+      .back-to-games {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 1000;
+        pointer-events: auto;
+        background: #1a0f3d;
+        border: 1px solid #d4a017;
+        color: #ffd700;
+        border-radius: 8px;
+        padding: 8px 14px;
+        font-weight: 600;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        font-size: 14px;
+        text-decoration: none;
+        transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      }
+      .back-to-games:hover {
+        background: #26165a;
+        border-color: #ffcf3f;
+        color: #fff1a8;
+      }
+      /* Branded loading overlay — shared across the deployed Pixi games. Covers the
+         canvas AND the back button until the game fires 'game:ready'. */
+      #loading-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 2000;
+        background: #1a0f3d;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 28px;
+        opacity: 1;
+        transition: opacity 0.4s ease;
+      }
+      #loading-icon {
+        width: 180px;
+        height: auto;
+        display: block;
+      }
+      #loading-bar-track {
+        width: 320px;
+        height: 12px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(212, 160, 23, 0.5);
+        overflow: hidden;
+      }
+      #loading-bar-fill {
+        width: 0%;
+        height: 100%;
+        border-radius: 6px;
+        background: linear-gradient(to right, #b8860b, #ffd700, #b8860b);
+        transition: width 0.2s ease;
+      }
+      #loading-text {
+        color: #ffd700;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+    </style>
+    <script type="module" crossorigin src="/wrath-of-hapi/assets/index-uhIebcoK.js"></script>
+  </head>
+  <body>
+    <!-- Back to the games index (site root). Kept in SOURCE so every rebuild carries it. -->
+    <a class="back-to-games" href="/">← All Games</a>
+
+    <!-- Branded loading overlay. Painted by the PLAIN inline script below (NOT a
+         module) so it shows immediately, before the Pixi bundle downloads. Dismissed
+         on the real 'game:ready' event dispatched from main.ts. Lives in SOURCE so
+         every rebuild carries it. -->
+    <div id="loading-overlay">
+      <img id="loading-icon" alt="Loading" />
+      <div id="loading-bar-track">
+        <div id="loading-bar-fill"></div>
+      </div>
+      <div id="loading-text">Loading…</div>
+    </div>
+    <script>
+      /* Plain (non-module) so it runs during parse, before the deferred game bundle.
+         Animates the bar 0 -> 80% while loading, then snaps to 100% and fades out on
+         'game:ready'. A 15s fallback guarantees it can never get stuck. complete() is
+         guarded so the event path and the fallback can't double-fire. */
+      (function () {
+        var overlay = document.getElementById('loading-overlay');
+        var fill = document.getElementById('loading-bar-fill');
+        var icon = document.getElementById('loading-icon');
+        if (!overlay || !fill) return;
+
+        // Resolve the icon under the deploy base (/wrath-of-hapi/) — never hardcode a
+        // leading-slash path. document.baseURI already carries the deployed base.
+        if (icon) icon.src = new URL('assets/loading-icon.png', document.baseURI).href;
+
+        var done = false;
+        var progress = 0;
+        var tick = setInterval(function () {
+          if (done) return;
+          // Ease toward 80% so the bar keeps moving while the bundle streams in.
+          progress += (80 - progress) * 0.06 + 0.4;
+          if (progress > 80) progress = 80;
+          fill.style.width = progress.toFixed(1) + '%';
+        }, 120);
+
+        function complete() {
+          if (done) return;
+          done = true;
+          clearInterval(tick);
+          clearTimeout(fallback);
+          fill.style.width = '100%';
+          overlay.style.opacity = '0';
+          // Remove after the opacity fade (matches the 0.4s transition above).
+          setTimeout(function () {
+            if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+          }, 450);
+        }
+
+        window.addEventListener('game:ready', complete, { once: true });
+        // Safety net: complete anyway if the game never signals readiness.
+        var fallback = setTimeout(complete, 15000);
+      })();
+    </script>
+
+    <!-- Pixi mounts its canvas here. -->
+    <div id="app"></div>
+  </body>
+</html>

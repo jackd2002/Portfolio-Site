@@ -1,0 +1,87 @@
+{
+  "name": "energy-field-overlay",
+  "mode": "discrete-level-sheets",
+  "levels": {
+    "neutral": {
+      "image": "energyfield-neutral.png",
+      "manifest": "energyfield-neutral.json",
+      "animation": "energy_neutral",
+      "multiplier": "x1"
+    },
+    "low": {
+      "image": "energyfield-low.png",
+      "manifest": "energyfield-low.json",
+      "animation": "energy_low",
+      "multiplier": "x2-x8"
+    },
+    "mid": {
+      "image": "energyfield-mid.png",
+      "manifest": "energyfield-mid.json",
+      "animation": "energy_mid",
+      "multiplier": "x16-x64"
+    },
+    "high": {
+      "image": "energyfield-high.png",
+      "manifest": "energyfield-high.json",
+      "animation": "energy_high",
+      "multiplier": "x128-x512"
+    },
+    "max": {
+      "image": "energyfield-max.png",
+      "manifest": "energyfield-max.json",
+      "animation": "energy_max",
+      "multiplier": "x1024"
+    }
+  },
+  "playback": {
+    "frameWidth": 489,
+    "frameHeight": 409,
+    "frameCount": 36,
+    "columns": 6,
+    "rows": 6,
+    "fps": 18,
+    "durationMs": 2000,
+    "loop": true,
+    "loopIn": 0,
+    "loopOut": 35,
+    "renderScale": 0.5,
+    "nativeSize": {
+      "w": 978,
+      "h": 818
+    }
+  },
+  "registration": {
+    "anchor": {
+      "x": 0,
+      "y": 0
+    },
+    "offsetFractionOfPlate": {
+      "x": 0,
+      "y": 0
+    },
+    "sizeFractionOfPlate": {
+      "w": 1,
+      "h": 1
+    },
+    "gridFractions": {
+      "padX": 0.012269938650306749,
+      "padY": 0.014669926650366748,
+      "cellW": 0.1574642126789366,
+      "cellH": 0.1882640586797066,
+      "gapX": 0.006134969325153374,
+      "gapY": 0.007334963325183374,
+      "pitchX": 0.16359918200409,
+      "pitchY": 0.19559902200489,
+      "cols": 6,
+      "rows": 5
+    },
+    "note": "Frame rect maps 1:1 onto the 978x818 plate. Anchor (0,0) at plate top-left, scale so sprite = plate size. Cell (c,r) top-left fraction = (padX + c*pitchX, padY + r*pitchY)."
+  },
+  "multiplierMapping": {
+    "x1": "neutral",
+    "x2-x8": "low",
+    "x16-x64": "mid",
+    "x128-x512": "high",
+    "x1024": "max"
+  }
+}

@@ -40,7 +40,7 @@
   }
 
   .main-nav {
-    padding: 16px 0;
+    padding: 8px 0;
     background: linear-gradient(180deg, rgba(0,0,0,0.15), transparent);
   }
 
@@ -74,20 +74,22 @@
   }
 
   /* Personal intro strip */
-  .intro-strip {
+  .top-row {
     max-width: 1240px;
-    margin: 24px auto 0;
+    margin: 12px auto 0;
     padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
   }
 
   .intro-card {
-    background: linear-gradient(135deg, rgba(107, 63, 219, 0.35), rgba(255, 77, 157, 0.2));
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 24px 28px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 16px;
+    padding: 18px;
     display: flex;
-    align-items: center;
-    gap: 24px;
+    align-items: flex-start;
+    gap: 18px;
     position: relative;
     overflow: hidden;
   }
@@ -104,9 +106,9 @@
 
   .intro-avatar {
     flex-shrink: 0;
-    width: 180px;
-    height: 180px;
-    border-radius: 20px;
+    width: 120px;
+    height: 120px;
+    border-radius: 16px;
     object-fit: cover;
     box-shadow: 0 8px 24px rgba(255, 149, 68, 0.3);
   }
@@ -125,7 +127,7 @@
 
   .intro-text h1 {
     font-family: 'Bungee', cursive;
-    font-size: 22px;
+    font-size: 25px;
     line-height: 1.2;
     margin-bottom: 6px;
     font-weight: normal;
@@ -133,9 +135,9 @@
 
   .intro-text p {
     color: var(--text-dim);
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
-    line-height: 1.5;
+    line-height: 1.55;
     max-width: 600px;
   }
 
@@ -247,7 +249,7 @@
   /* Section title */
   .section-title {
     max-width: 1240px;
-    margin: 40px auto 16px;
+    margin: 16px auto 12px;
     padding: 0 24px;
     display: flex;
     align-items: center;
@@ -400,6 +402,14 @@
   }
 
   /* Banner backgrounds */
+  .banner-wrath {
+    background-image: url('assets/wrath-of-hapi-button.png');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .banner-wrath::after { background: none; }
+
   .banner-atomic {
     background-image: url('assets/Atomic-archie-button.png');
     background-size: cover;
@@ -578,14 +588,66 @@
   }
   .footer-links a:hover { color: white; }
 
+  /* Live RTP Monitor */
+  .rtp-card {
+    background: rgba(0,0,0,0.2);
+    border-radius: 16px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 340px);
+    gap: 16px;
+    align-items: center;
+  }
+
+  .rtp-eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 2px;
+  }
+
+  .rtp-text h2 {
+    font-family: 'Bungee', cursive;
+    font-size: 17px;
+    font-weight: normal;
+    line-height: 1.2;
+    margin-bottom: 2px;
+    color: #ffd700;
+  }
+
+  .rtp-subhead {
+    font-style: italic;
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+
+  .rtp-body {
+    color: var(--text-dim);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+
+  .rtp-preview {
+    display: block;
+    width: 100%;
+    max-width: 340px;
+    height: auto;
+    border-radius: 12px;
+  }
+
   @media (max-width: 900px) {
     .games-grid { grid-template-columns: 1fr; }
     .categories { grid-template-columns: repeat(2, 1fr); }
     .featured-banner { padding: 20px; }
     .featured-art { display: none; }
 .intro-card { flex-direction: column; align-items: flex-start; padding: 20px; }
-    .intro-actions { width: 100%; }
-    .intro-btn { flex: 1; justify-content: center; }
+    .top-row { grid-template-columns: 1fr; }
+    .rtp-card { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -600,18 +662,24 @@
   </div>
 </nav>
 
-<div class="intro-strip">
+<div class="top-row">
   <div class="intro-card">
     <img src="assets/headshot.png" alt="Jack Drach" class="intro-avatar">
     <div class="intro-text">
       <div class="intro-tag">SLOT DESIGNER · PORTFOLIO</div>
       <h1>Hey, I'm Jack. Welcome to my slot portfolio.</h1>
-      <p>I'm an independent slot designer, and I build every layer of a game myself — the math model and RTP, the bonus mechanics, the art direction, and the moment-to-moment pacing that makes a spin feel right. Every game here is validated in Python with large-scale Monte Carlo simulation to land on its target return, then built the way commercial slots actually work: a real game engine with outcomes resolved server-side, not faked in the browser. I'm looking to bring this craft to a studio.</p>
+      <p>I'm an independent slot designer — I build every layer myself: math model and RTP, bonus mechanics, art, and pacing. Every game is validated in Python with large-scale Monte Carlo simulation and built on a real engine with outcomes resolved server-side.</p>
     </div>
-    <div class="intro-actions">
-      <a href="assets/Jack_Drach_Resume.pdf" target="_blank" rel="noopener" class="intro-btn intro-btn-primary">📄 Resume</a>
-      <a href="https://www.linkedin.com/in/jack-drach-a7117a200/" target="_blank" rel="noopener" class="intro-btn intro-btn-secondary">LinkedIn</a>
+  </div>
+
+  <div class="rtp-card">
+    <div class="rtp-text">
+      <div class="rtp-eyebrow">NEW — BUILT INTO EVERY GAME</div>
+      <h2>Live RTP Monitor</h2>
+      <div class="rtp-subhead">A real-time math instrument built into every game.</div>
+      <p class="rtp-body">A read-only observer that tracks return-to-player live against the certified target, without touching the RNG or outcomes. Includes an in-browser 100k-spin convergence simulation through the real engine, always reporting RTP with its confidence interval.</p>
     </div>
+    <img src="assets/rtp-monitor.png" alt="Live RTP Monitor — Quick Sim convergence snapshot" class="rtp-preview" id="rtp-monitor-preview">
   </div>
 </div>
 
@@ -621,6 +689,8 @@
 </div>
 
 <div class="games-grid">
+
+  <a href="wrath-of-hapi/" class="game-banner banner-wrath"></a>
 
   <a href="atomic-archie/" class="game-banner banner-atomic"></a>
 

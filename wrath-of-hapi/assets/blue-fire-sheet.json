@@ -1,0 +1,29 @@
+{
+  "name": "blue-fire-overlay",
+  "frameWidth": 546,
+  "frameHeight": 676,
+  "frameCount": 48,
+  "columns": 7,
+  "rows": 7,
+  "fps": 24,
+  "durationMs": 2000,
+  "loop": true,
+  "loopIn": 0,
+  "loopOut": 47,
+  "blendMode": "add",
+  "registration": {
+    "note": "Fire frame is larger than the button and offset so flames extend past all edges. Place ABOVE the static button (button.png, 1086x1448).",
+    "buttonRectInFrame": {
+      "x": 77,
+      "y": 77,
+      "width": 392,
+      "height": 522.1999999999999
+    },
+    "asFractionOfButtonSize": {
+      "offsetX": -0.19642857142857142,
+      "offsetY": -0.14745308310991956,
+      "width": 1.3928571428571428,
+      "height": 1.2949061662198391
+    }
+  }
+}

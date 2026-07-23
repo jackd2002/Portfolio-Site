@@ -1,0 +1,53 @@
+{
+  "name": "blue-fire-frame-overlay",
+  "frameCount": 48,
+  "columns": 7,
+  "rows": 7,
+  "fps": 24,
+  "durationMs": 2000,
+  "loop": true,
+  "loopIn": 0,
+  "loopOut": 47,
+  "blendMode": "add",
+  "registration": {
+    "note": "All 3 strips tile one virtual 782x664 canvas where the static frame (frame.png, 702x584) sits at (40,40). Play all strips on the SAME frame index. Place ABOVE the static frame with ADD blending. Offsets are fractions of the frame display size, from the frame top-left."
+  },
+  "segments": [
+    {
+      "name": "top",
+      "file": "fire-top.png",
+      "frameWidth": 782,
+      "frameHeight": 200,
+      "placementAsFractionOfFrameSize": {
+        "offsetX": -0.05698,
+        "offsetY": -0.068493,
+        "width": 1.11396,
+        "height": 0.342466
+      }
+    },
+    {
+      "name": "left",
+      "file": "fire-left.png",
+      "frameWidth": 170,
+      "frameHeight": 464,
+      "placementAsFractionOfFrameSize": {
+        "offsetX": -0.05698,
+        "offsetY": 0.273973,
+        "width": 0.242165,
+        "height": 0.794521
+      }
+    },
+    {
+      "name": "right",
+      "file": "fire-right.png",
+      "frameWidth": 170,
+      "frameHeight": 464,
+      "placementAsFractionOfFrameSize": {
+        "offsetX": 0.814815,
+        "offsetY": 0.273973,
+        "width": 0.242165,
+        "height": 0.794521
+      }
+    }
+  ]
+}
