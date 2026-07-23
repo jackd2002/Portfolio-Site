@@ -86,10 +86,10 @@
   .intro-card {
     background: rgba(0,0,0,0.2);
     border-radius: 16px;
-    padding: 18px;
+    padding: 22px;
     display: flex;
     align-items: flex-start;
-    gap: 18px;
+    gap: 22px;
     position: relative;
     overflow: hidden;
   }
@@ -106,8 +106,8 @@
 
   .intro-avatar {
     flex-shrink: 0;
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
     border-radius: 16px;
     object-fit: cover;
     box-shadow: 0 8px 24px rgba(255, 149, 68, 0.3);
@@ -127,7 +127,7 @@
 
   .intro-text h1 {
     font-family: 'Bungee', cursive;
-    font-size: 25px;
+    font-size: 27px;
     line-height: 1.2;
     margin-bottom: 6px;
     font-weight: normal;
@@ -135,39 +135,57 @@
 
   .intro-text p {
     color: var(--text-dim);
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
     line-height: 1.55;
     max-width: 600px;
   }
 
-  .intro-actions { display: flex; gap: 10px; flex-shrink: 0; position: relative; z-index: 1; }
+  .intro-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-shrink: 0;
+    align-self: center;
+    position: relative;
+    z-index: 1;
+  }
 
   .intro-btn {
     padding: 10px 18px;
     border-radius: 999px;
-    font-weight: 800;
-    font-size: 13px;
+    font-weight: 500;
+    font-size: 14px;
     text-decoration: none;
-    transition: transform 0.15s;
+    transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
+    white-space: nowrap;
   }
 
   .intro-btn-primary {
-    background: var(--yellow);
+    background: #d4a017;
     color: #1a0f3d;
-    box-shadow: 0 4px 14px rgba(255, 210, 74, 0.3);
+  }
+
+  .intro-btn-primary:hover {
+    background: #eab72a;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(212,160,23,0.35);
   }
 
   .intro-btn-secondary {
-    background: rgba(255,255,255,0.08);
-    color: white;
-    border: 1px solid rgba(255,255,255,0.12);
+    background: transparent;
+    color: #d4a017;
+    border: 1px solid #d4a017;
   }
 
-  .intro-btn:hover { transform: translateY(-1px); }
+  .intro-btn-secondary:hover {
+    background: rgba(212,160,23,0.12);
+    transform: translateY(-1px);
+  }
 
   /* Featured banner */
   .featured {
@@ -592,10 +610,10 @@
   .rtp-card {
     background: rgba(0,0,0,0.2);
     border-radius: 16px;
-    padding: 10px;
+    padding: 8px;
     display: grid;
-    grid-template-columns: 1fr minmax(0, 340px);
-    gap: 16px;
+    grid-template-columns: 1fr minmax(0, 300px);
+    gap: 14px;
     align-items: center;
   }
 
@@ -606,7 +624,7 @@
     letter-spacing: 1.5px;
     text-transform: uppercase;
     color: var(--yellow);
-    margin-bottom: 2px;
+    margin-bottom: 1px;
   }
 
   .rtp-text h2 {
@@ -614,7 +632,7 @@
     font-size: 17px;
     font-weight: normal;
     line-height: 1.2;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
     color: #ffd700;
   }
 
@@ -622,7 +640,7 @@
     font-style: italic;
     color: var(--text-dim);
     font-size: 14px;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
   }
 
   .rtp-body {
@@ -635,7 +653,7 @@
   .rtp-preview {
     display: block;
     width: 100%;
-    max-width: 340px;
+    max-width: 300px;
     height: auto;
     border-radius: 12px;
   }
@@ -669,6 +687,10 @@
       <div class="intro-tag">SLOT DESIGNER · PORTFOLIO</div>
       <h1>Hey, I'm Jack. Welcome to my slot portfolio.</h1>
       <p>I'm an independent slot designer — I build every layer myself: math model and RTP, bonus mechanics, art, and pacing. Every game is validated in Python with large-scale Monte Carlo simulation and built on a real engine with outcomes resolved server-side.</p>
+    </div>
+    <div class="intro-actions">
+      <a href="assets/Jack_Drach_Resume.pdf" target="_blank" rel="noopener" class="intro-btn intro-btn-primary">Resume</a>
+      <a href="https://www.linkedin.com/in/jack-drach-a7117a200/" target="_blank" rel="noopener" class="intro-btn intro-btn-secondary">LinkedIn</a>
     </div>
   </div>
 
